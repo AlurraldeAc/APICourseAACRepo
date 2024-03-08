@@ -1,0 +1,254 @@
+***Task 1 Check CRUD in a API (Smoke)***
+
+API Page: https://gorest.co.in/
+Authentication : Oauth
+
+**GET request**
+
+	$ curl -X GET "https://gorest.co.in/public/v2/users/6752509" -H "Authorization: Bearer $token" | jq
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	100   114  100   114    0     0     77      0  0:00:01  0:00:01 --:--:--    77
+	{
+		"id": 6752509,
+		"name": "Kanchan Patil",
+		"email": "patil_kanchan@hintz-mueller.test",
+		"gender": "male",
+		"status": "active"
+	}
+
+
+	$ curl -X GET "https://gorest.co.in/public/v2/users" -H "Authorization: Bearer $token" | jq
+	
+	Response:
+	
+	  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+	100  1183  100  1183    0     0    852      0  0:00:01  0:00:01 --:--:--   852
+	[
+		{
+			"id": 6752509,
+			"name": "Kanchan Patil",
+			"email": "patil_kanchan@hintz-mueller.test",
+			"gender": "male",
+			"status": "active"
+		},
+		{
+			"id": 6752508,
+			"name": "Sudeva Gowda",
+			"email": "sudeva_gowda@swift.test",
+			"gender": "male",
+			"status": "active"
+		},
+		{
+			"id": 6752507,
+			"name": "Yogendra Deshpande",
+			"email": "yogendra_deshpande@gulgowski.test",
+			"gender": "female",
+			"status": "active"
+		},
+		{
+			"id": 6752506,
+			"name": "Chandran Chaturvedi",
+			"email": "chaturvedi_chandran@greenholt-bogan.example",
+			"gender": "female",
+			"status": "active"
+		},
+		{
+			"id": 6752505,
+			"name": "Suryakantam Acharya DDS",
+			"email": "acharya_dds_suryakantam@abshire.test",
+			"gender": "male",
+			"status": "active"
+		},
+		{
+			"id": 6752502,
+			"name": "Sen. Dinesh Patel",
+			"email": "patel_sen_dinesh@walter-wiegand.test",
+			"gender": "female",
+			"status": "inactive"
+		},
+		{
+			"id": 6752501,
+			"name": "Fr. Nawal Marar",
+			"email": "marar_nawal_fr@altenwerth.example",
+			"gender": "male",
+			"status": "active"
+		},
+		{
+			"id": 6752500,
+			"name": "Brahmdev Saini",
+			"email": "saini_brahmdev@hayes.test",
+			"gender": "male",
+			"status": "active"
+		},
+		{
+			"id": 6752499,
+			"name": "Gajabahu Pilla",
+			"email": "pilla_gajabahu@pouros-parker.example",
+			"gender": "male",
+			"status": "inactive"
+		}
+	]
+
+
+**POST request**
+
+	$ curl "https://gorest.co.in/public/v2/users" \
+	>     -X POST \
+	>     --data '{"name":"Cachito Loprera", "gender":"male", "email":"chacho.lo@15ce.com", "status":"active"}' \
+	>     -H "Content-Type: application/json" \
+	>     -H "Authorization: Bearer $token"
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	100   194  100   102  100    92     73     66  0:00:01  0:00:01 --:--:--   140
+	{	
+		"id": 6767511,
+		"name":"Cachito Loprera",
+		"email":"chacho.lo@15ce.com",
+		"gender":"male",
+		"status":"active"
+	}
+	
+	
+
+**PUT request**
+
+	$ curl "https://gorest.co.in/public/v2/users/6767511" \
+	> -X PUT \
+	> --data '{"name":"Cachito Lopez T.", "gender":"male", "email":"chacho.lo@gmail.com", "status":"active"}' \
+	> -H "Content-Type: application/json" \
+	> -H "Authorization: Bearer $token" | jq
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	100   198  100   104  100    94     77     70  0:00:01  0:00:01 --:--:--   148
+	{
+	"email": "chacho.lo@gmail.com",
+	"name": "Cachito Lopez T.",
+	"gender": "male",
+	"status": "active",
+	"id": 6767511
+	}
+	
+	
+	
+**DELETE request**
+	$ curl "https://gorest.co.in/public/v2/users/6767511" \
+	> -X DELETE \
+	> -H "Authorization: Bearer $token"
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+
+
+	*Checking the user list after delete operation
+	$ curl -X GET "https://gorest.co.in/public/v2/users" -H "Authorization: Bearer $token" | jq                                                                     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+	100  1160  100  1160    0     0    709      0  0:00:01  0:00:01 --:--:--   709
+	[
+	{
+		"id": 6752509,
+		"name": "Kanchan Patil",
+		"email": "patil_kanchan@hintz-mueller.test",
+		"gender": "male",
+		"status": "active"
+	},
+	{
+		"id": 6752508,
+		"name": "Sudeva Gowda",
+		"email": "sudeva_gowda@swift.test",
+		"gender": "male",
+		"status": "active"
+	},
+	{
+		"id": 6752507,
+		"name": "Yogendra Deshpande",
+		"email": "yogendra_deshpande@gulgowski.test",
+		"gender": "female",
+		"status": "active"
+	},
+	{
+		"id": 6752506,
+		"name": "Chandran Chaturvedi",
+		"email": "chaturvedi_chandran@greenholt-bogan.example",
+		"gender": "female",
+		"status": "active"
+	},
+	{
+		"id": 6752505,
+		"name": "Suryakantam Acharya DDS",
+		"email": "acharya_dds_suryakantam@abshire.test",
+		"gender": "male",
+		"status": "active"
+	},
+	{
+		"id": 6752502,
+		"name": "Sen. Dinesh Patel",
+		"email": "patel_sen_dinesh@walter-wiegand.test",
+		"gender": "female",
+		"status": "inactive"
+	},
+	{
+		"id": 6752501,
+		"name": "Fr. Nawal Marar",
+		"email": "marar_nawal_fr@altenwerth.example",
+		"gender": "male",
+		"status": "active"
+	}
+	]
+
+**Negative request**
+
+- Get using an unexisting id : 7752509
+	
+	$ curl -X GET "https://gorest.co.in/public/v2/users/7752509" -H "Authorization: Bearer $token" | jq
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+	100    32  100    32    0     0     24      0  0:00:01  0:00:01 --:--:--    24
+	{
+	"message": "Resource not found"
+	}
+	
+- Post with empty required properties
+	
+	$ curl "https://gorest.co.in/public/v2/users" -X POST -d '{"name":"", "gender":"", "email":"some@mail.com", "status":"active"}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" | jq
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	100   182  100   114  100    68     72     43  0:00:01  0:00:01 --:--:--   115
+	[
+		{
+			"field": "name",
+			"message": "can't be blank"
+		},
+		{
+			"field": "gender",
+			"message": "can't be blank, can be male of female"
+		}
+	]
+
+- PUT invalid email
+	$ curl "https://gorest.co.in/public/v2/users/6752509" \
+	> -X PUT \
+	> --data '{"name":"Kanchan Patil", "gender":"female", "email":"patil_kanchanhintz-mueller_test", "status":"active"}' \
+	> -H "Content-Type: application/json" \
+	> -H "Authorization: Bearer $token" | jq
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	100   147  100    42  100   105     30     76  0:00:01  0:00:01 --:--:--   107
+	[
+		{
+			"field": "email",
+			"message": "is invalid"
+		}
+	]
+
+- DELETE using invalid id: TK67Q11 
+	$ curl "https://gorest.co.in/public/v2/users/TK67Q11" -X DELETE -H "Authorization: Bearer $token" | jq
+	% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+									Dload  Upload   Total   Spent    Left  Speed
+	100    32  100    32    0     0     24      0  0:00:01  0:00:01 --:--:--    24
+	{
+	"message": "Resource not found"
+	}
+	
+	
