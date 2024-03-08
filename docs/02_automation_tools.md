@@ -114,7 +114,7 @@ https://insomnia.rest
 > Save in curl folder in your repository:
 > 
 <pre>
- ├── api_automation_2024
+ ├── api_automation_2024_B
  │  ├── docs
  │  ├── curl --> upload your request here
 </pre>
