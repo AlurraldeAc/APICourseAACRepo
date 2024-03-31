@@ -20,7 +20,7 @@ class TestUsers:
         LOGGER.debug("User Id: %s", cls.user_id)
         cls.user_created_list = []
 
-    def test_get_all_users(self, log_test_names):
+    def test_get_all_users(self):
         """
         Test get all user from GET endpoint
         """
@@ -28,7 +28,7 @@ class TestUsers:
         response = self.rest_client.request("get", self.url_gorest_users)
         assert response.status_code == 200
 
-    def test_get_user(self, log_test_names):
+    def test_get_user(self):
         """
         Test get a specific user from GET endpoint
         """
@@ -37,7 +37,7 @@ class TestUsers:
         response = self.rest_client.request("get", url_get_user)
         assert response.status_code == 200
 
-    def test_create_user(self, log_test_names):
+    def test_create_user(self):
         """
         Test create a new user (post method)
         """
@@ -54,12 +54,12 @@ class TestUsers:
 
         assert response.status_code == 201
 
-    def test_update_user(self, create_user, log_test_names):
+    def test_update_user(self):
         """
         Test update user (the last created)
         """
         LOGGER.info("Test update user")
-        url_update_user = f"{self.url_gorest_users}/{create_user}"
+        url_update_user = f"{self.url_gorest_users}/{self.user_id}"
         body_request_update = {
             "name": "Rolando Baldez",
             "email": "bladezrol@mail.com",
@@ -68,9 +68,12 @@ class TestUsers:
         }
         LOGGER.info("User to update, %s", self.user_id)
         response = self.rest_client.request("put", url_update_user, body=body_request_update)
+        if response.status_code == 200:
+            self.user_created_list.append(response.json()["id"])
+
         assert response.status_code == 200
 
-    def test_delete_user(self, create_user, log_test_names):
+    def test_delete_user(self, create_user):
         """
         Test delete a user
         """
@@ -80,8 +83,6 @@ class TestUsers:
         response = self.rest_client.request("delete", url_delete_user)
         assert response.status_code == 204
 
-# This teardown class method would be unnecessary if the "test_create_user" test
-# were not leaving single user alone that it not being deleted after all tests.
     @classmethod
     def teardown_class(cls):
         """
