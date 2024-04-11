@@ -9,4 +9,4 @@ URL_GOREST = "https://gorest.co.in/public/v2"
 HEADERS_GOREST = {
     "Authorization": f"Bearer {token_gorest_api}"
 }
-
+abs_path = os.path.abspath(__file__ + "../../../")

@@ -1,7 +1,11 @@
 import logging
 
+import pytest
+
+from entities.user import User
 from helpers.rest_client import RestClient
 from config.config import URL_GOREST
+from helpers.validate_response import ValidateResponse
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
@@ -19,70 +23,60 @@ class TestUsers:
         cls.user_id = response["body"][0]["id"]
         LOGGER.debug("User Id: %s", cls.user_id)
         cls.user_created_list = []
+        cls.validate = ValidateResponse()
+        cls.user = User()
 
+    @pytest.mark.acceptance
     def test_get_all_users(self, log_test_names):
         """
         Test get all user from GET endpoint
         """
         LOGGER.info("Test GET all users")
-        response = self.rest_client.request("get", self.url_gorest_users)
-        # From assert response.status_code == 200  --> assert response["status_code"]== 200
-        # To
-        assert response["status_code"] == 200
+        response = self.user.get_all_users()
+        self.validate.validate_response(response, "users", "Get_all_users")
 
+    @pytest.mark.sanity
     def test_get_user(self, log_test_names):
         """
         Test get a specific user from GET endpoint
         """
         LOGGER.info("Test GET a user by Id")
-        url_get_user = f"{self.url_gorest_users}/{self.user_id}"
-        response = self.rest_client.request("get", url_get_user)
-        assert response["status_code"] == 200
+        response = self.user.get_user(self.user_id)
+        self.validate.validate_response(response, "users", "Get_user")
 
+    @pytest.mark.acceptance
     def test_create_user(self, log_test_names):
         """
-        Test create a new user (post method)
+        Test create a new user (posts method)
         """
         LOGGER.info("Test create new user")
-        body_request = {
-            "name": "Rolando Bladez",
-            "email": "blrol@mail.com",
-            "gender": "male",
-            "status": "active"
-        }
-        response = self.rest_client.request("post", self.url_gorest_users, body=body_request)
+        response, _ = self.user.create_user()
         if response["status_code"] == 201:
             self.user_created_list.append(response["body"]["id"])
+        self.validate.validate_response(response, "users", "Create_user")
 
-        assert response["status_code"] == 201
-
-    def test_update_user(self, create_user, log_test_names):
+    @pytest.mark.acceptance
+    def test_update_user(self, log_test_names):
         """
         Test update user (the last created)
         """
         LOGGER.info("Test update user")
-        url_update_user = f"{self.url_gorest_users}/{create_user}"
-        body_request_update = {
-            "name": "Marco Fio",
-            "email": "markCleo@mail.com",
-            "gender": "male",
-            "status": "inactive"
-        }
-        LOGGER.info("User to update, %s", self.user_id)
-        response = self.rest_client.request("put", url_update_user, body=body_request_update)
-        if response["status_code"] == 200:
-            self.user_created_list.append(response["body"]["id"])
-        assert response["status_code"] == 200
+        create_response, _ = self.user.create_user()
+        update_response = self.user.update_user(create_response)
 
-    def test_delete_user(self, create_user, log_test_names):
+        if update_response["status_code"] == 200:
+            self.user_created_list.append(update_response["body"]["id"])
+        self.validate.validate_response(update_response, "users", "Update_user")
+
+    @pytest.mark.acceptance
+    def test_delete_user(self, log_test_names):
         """
         Test delete a user
         """
         LOGGER.info("Test delete user")
-        url_delete_user = f"{self.url_gorest_users}/{create_user}"
-        LOGGER.info("user Id to be deleted : %s", create_user)
-        response = self.rest_client.request("delete", url_delete_user)
-        assert response["status_code"] == 204
+        create_response, _ = self.user.create_user()
+        response = self.user.delete_user(create_response["body"]["id"])
+        self.validate.validate_response(response, "users", "Delete_user")
 
 # This teardown class method would be unnecessary if the "test_create_user" test
 # were not leaving single user alone that it not being deleted after all tests.

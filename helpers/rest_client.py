@@ -67,7 +67,7 @@ class RestClient:
         """
         methods = {
             "get": session.get,
-            "post": session.post,
+            "posts": session.post,
             "put": session.put,
             "delete": session.delete
         }

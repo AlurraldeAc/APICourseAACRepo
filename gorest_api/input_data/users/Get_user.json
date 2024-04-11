@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/users"
+  },
+  "response": {
+    "body":
+	{
+		"id": 6821669,
+		"name": "Opaline Arora Sr.",
+		"email": "sr_opaline_arora@mante.example",
+		"gender": "male",
+		"status": "active"
+	}
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "Transfer-Encoding": "chunked"
+  },
+  "status_code": 200
+}
