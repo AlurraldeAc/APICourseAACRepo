@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/posts"
+  },
+  "response": {
+    "body":
+    {
+        "id": 117797,
+        "user_id": 6847404,
+        "title": "post test.",
+        "body": "New Post"
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "status_code": 201
+}

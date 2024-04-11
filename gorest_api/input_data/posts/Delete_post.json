@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "/posts"
+  },
+  "response": {
+    "body":
+        {
+          "msg": "No body Content"
+        }
+  },
+  "headers": {
+    "Connection": "keep-alive"
+  },
+  "status_code": 204
+}
