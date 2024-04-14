@@ -2,10 +2,8 @@ import logging
 
 import pytest
 
-from config.config import URL_GOREST
 from entities.post import Post
 from entities.user import User
-from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)

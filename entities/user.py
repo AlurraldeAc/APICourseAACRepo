@@ -67,3 +67,25 @@ class User:
         response = self.rest_client.request("get", url_user)
         return response
 
+    def create_missing_name(self):
+        body_user = {
+            "name": "",
+            "email": "username@mail.com",
+            "gender": "male",
+            "status": "active"
+            }
+        response = self.rest_client.request("posts", self.url_gorest_users, body=body_user)
+        return response
+
+    def already_taken_email(self, user_object):
+        email = user_object["body"]["email"]
+        body_user = {
+            "name": "New username",
+            "email": f"{email}",
+            "gender": "male",
+            "status": "active"
+            }
+        response = self.rest_client.request("posts", self.url_gorest_users, body=body_user)
+        return response
+
+
