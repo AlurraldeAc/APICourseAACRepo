@@ -78,6 +78,37 @@ class TestUsers:
         response = self.user.delete_user(create_response["body"]["id"])
         self.validate.validate_response(response, "users", "Delete_user")
 
+    @pytest.mark.negative
+    def test_required_field_name(self, log_test_names):
+        """
+        Test required field is not sent in request body (name)
+        """
+        LOGGER.info("Test required field: name")
+        response = self.user.create_missing_name()
+        self.validate.validate_response(response, "users", "Name_required")
+
+    @pytest.mark.negative
+    def test_email_already_taken(self, log_test_names):
+        """
+        Test email address is already taken
+        """
+        LOGGER.info("Test email address is already taken")
+        response_create, _ = self.user.create_user()
+        if response_create["status_code"] == 201:
+            self.user_created_list.append(response_create["body"]["id"])
+        response = self.user.already_taken_email(response_create)
+        self.validate.validate_response(response, "users", "eMail_already_taken")
+
+    @pytest.mark.negative
+    def test_nonexistent_user(self, log_test_names):
+        """
+        Test trying to retrieve a user that does not exist
+        """
+        LOGGER.info("Test retrieve user when resource is not available")
+        user_id = 9999999
+        response = self.user.get_user(user_id)
+        self.validate.validate_response(response, "users", "Nonexistent_user")
+
 # This teardown class method would be unnecessary if the "test_create_user" test
 # were not leaving single user alone that it not being deleted after all tests.
     @classmethod
