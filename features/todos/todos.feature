@@ -14,6 +14,7 @@ Feature: Todos
     Then I receive the response and validate with "Get_all_todos" file
     And I validate the status code is 200
 
+
   @normal
   @allure.label.owner:Ariel_Alurralde
   @allure.link:https://dev.example.com/
@@ -26,7 +27,8 @@ Feature: Todos
     Then I receive the response and validate with "Get_todo" file
     And I validate the status code is 200
 
-  @trivial
+
+  @critical
   @allure.label.owner:Ariel_Alurralde
   @allure.link:https://dev.example.com/
   @allure.issue:API-QA456
@@ -52,3 +54,41 @@ Feature: Todos
       | Complete review model two     | 2024-05-15T00:00:00.000  |
       | Complete build model three    | 2024-05-16T00:00:00.000  |
       | Complete project models four  | 2024-05-17T00:00:00.000  |
+
+
+  @critical
+  @allure.label.owner:Ariel_Alurralde
+  @allure.link:https://dev.example.com/
+  @allure.issue:API-QA456
+  @acceptance @user_id @todo_id
+  Scenario Outline: Verify that put Todo endpoint updates a created todo object
+    As I user, I want to update a todo object from GoRest API
+
+    When I call the "todos" endpoint using "PUT" option
+    """
+      {
+        "user_id": "user_id",
+        "title": "Todo update test <errand_name>",
+        "due_on": "<due_date>",
+        "status": "completed"
+      }
+    """
+    Then I receive the response and validate with "Update_todo" file
+    And I validate the status code is 200
+
+    Examples:
+    | errand_name                   | due_date                 |
+    | Complete the test errand      | 2024-05-08T00:00:00.000  |
+
+
+  @trivial
+  @allure.label.owner:Ariel_Alurralde
+  @allure.link:https://dev.example.com/
+  @allure.issue:API-QA456
+  @acceptance @user_id @todo_id
+  Scenario: Verify that delete todo endpoint deletes a Todo object
+    As I user, I want to delete a post object from GoRest API
+
+    When I call the "todos" endpoint using "DELETE" option and with parameters
+    Then I receive the response and validate with "Delete_todo" file
+    And I validate the status code is 204

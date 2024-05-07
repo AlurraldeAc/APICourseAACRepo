@@ -14,6 +14,7 @@ Feature: Users
     Then I receive the response and validate with "Get_all_users" file
     And I validate the status code is 200
 
+
   @critical
   @allure.label.owner:Ariel_Alurralde
   @allure.link:https://dev.example.com/
@@ -25,6 +26,7 @@ Feature: Users
     When I call the Get "users" endpoint option with parameters
     Then I receive the response and validate with "Get_user" file
     And I validate the status code is 200
+
 
   @critical
   @allure.label.owner:Ariel_Alurralde
@@ -38,6 +40,7 @@ Feature: Users
     Then I receive the response and validate with "Create_user" file
     And I validate the status code is 201
 
+
   @trivial
   @allure.label.owner:Ariel_Alurralde
   @allure.link:https://dev.example.com/
@@ -49,6 +52,7 @@ Feature: Users
     When I call the "users" endpoint using "PUT" option
     Then I receive the response and validate with "Update_user" file
     And I validate the status code is 200
+
 
   @normal
   @allure.label.owner:Ariel_Alurralde

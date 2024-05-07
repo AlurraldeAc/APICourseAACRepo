@@ -14,6 +14,7 @@ Feature: Posts
     Then I receive the response and validate with "Get_all_posts" file
     And I validate the status code is 200
 
+
   @critical
   @allure.label.owner:Ariel_Alurralde
   @allure.link:https://dev.example.com/
@@ -25,6 +26,7 @@ Feature: Posts
     When I call the Get "posts" endpoint option with parameters
     Then I receive the response and validate with "Get_post" file
     And I validate the status code is 200
+
 
   @critical
   @allure.label.owner:Ariel_Alurralde
@@ -51,3 +53,29 @@ Feature: Posts
       | New post name two     | Text on New post two     |
       | New post name three   | Text on New post three   |
       | New post name four    | Text on New post four    |
+
+
+  @trivial
+  @allure.label.owner:Ariel_Alurralde
+  @allure.link:https://dev.example.com/
+  @allure.issue:API-QA321
+  @acceptance @user_id @post_id
+  Scenario: Verify that put Posts endpoint updates a created post object
+    As I user, I want to update a post object from GoRest API
+
+    When I call the "posts" endpoint using "PUT" option
+    Then I receive the response and validate with "Update_post" file
+    And I validate the status code is 200
+
+
+  @normal
+  @allure.label.owner:Ariel_Alurralde
+  @allure.link:https://dev.example.com/
+  @allure.issue:API-QA321
+  @acceptance @user_id @post_id
+  Scenario: Verify that delete posts endpoint deletes a post object
+    As I user, I want to delete a post object from GoRest API
+
+    When I call the "posts" endpoint using "DELETE" option and with parameters
+    Then I receive the response and validate with "Delete_post" file
+    And I validate the status code is 204
