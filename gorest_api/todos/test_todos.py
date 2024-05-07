@@ -1,18 +1,23 @@
+"""
+TestTodos file - Pytest
+"""
 import logging
-
 import pytest
 
 from entities.todo import Todo
 from entities.user import User
 from helpers.rest_client import RestClient
-from config.config import URL_GOREST
 from helpers.validate_response import ValidateResponse
+from config.config import URL_GOREST
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 class TestTodos:
+    """
+    Class TestTodos to test To-do objects
+    """
     rest_client = None
     url_gorest_todos = None
     todo_created_list = None

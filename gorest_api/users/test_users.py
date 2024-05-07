@@ -1,17 +1,22 @@
+"""
+TestUsers file - Pytest
+"""
 import logging
-
 import pytest
 
 from entities.user import User
 from helpers.rest_client import RestClient
-from config.config import URL_GOREST
 from helpers.validate_response import ValidateResponse
+from config.config import URL_GOREST
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 class TestUsers:
+    """
+    Class TestPost to test user objects
+    """
     user_created_list = None
     user_id = None
     url_gorest_users = None

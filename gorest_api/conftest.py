@@ -1,5 +1,7 @@
+"""
+Confing test file pytest
+"""
 import logging
-
 import pytest
 
 from entities.post import Post
@@ -11,6 +13,11 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 @pytest.fixture()
 def create_user():
+    """
+    Create user method
+    Returns:
+
+    """
     user_id = None
     LOGGER.info("Fixture: Create a new user (init user)")
     user_object = User()
@@ -28,6 +35,14 @@ def create_user():
 
 @pytest.fixture()
 def create_post(user_id):
+    """
+    Create post
+    Args:
+        user_id:
+
+    Returns:
+
+    """
     post_id = None
     LOGGER.info("Test create post")
     post_object = Post()
@@ -39,6 +54,15 @@ def create_post(user_id):
 
 # Now, yield will call delete_user(user_id, user_object) method.
 def delete_user(user_id, user_object):
+    """
+    Delete user
+    Args:
+        user_id:
+        user_object:
+
+    Returns:
+
+    """
     user_object.delete_user(user_id)
 
 
@@ -47,9 +71,22 @@ def delete_user(user_id, user_object):
 # The log_test_names sent as parameter in tests method - It retrieves the test name and prints it.
 @pytest.fixture()
 def log_test_names(request):
+    """
+    Log test ini : title test
+    Args:
+        request:
+
+    Returns:
+
+    """
     LOGGER.info("****** Test '%s' STARTED ******", request.node.name)
 
     def ending_test_info():
+        """
+        Log test ending info
+        Returns:
+
+        """
         LOGGER.info("------ Test '%s' COMPLETED ------\n", request.node.name)
 
     request.addfinalizer(ending_test_info)

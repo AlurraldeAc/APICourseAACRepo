@@ -1,18 +1,23 @@
+"""
+TestPost file - Pytest
+"""
 import logging
-
 import pytest
 
 from entities.post import Post
 from entities.user import User
 from helpers.rest_client import RestClient
-from config.config import URL_GOREST
 from helpers.validate_response import ValidateResponse
+from config.config import URL_GOREST
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 class TestPosts:
+    """
+    Class TestPost to test posts objects
+    """
     url_gorest_posts = None
     rest_client = None
     post_created_list = None
