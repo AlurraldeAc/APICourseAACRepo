@@ -13,6 +13,11 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 class TestPosts:
+    url_gorest_posts = None
+    rest_client = None
+    post_created_list = None
+    post_id = None
+
     @classmethod
     def setup_class(cls):
         """
@@ -40,7 +45,7 @@ class TestPosts:
     @pytest.mark.acceptance
     def test_get_post(self, log_test_names):
         """
-        Test get a specific post from GET endpoint
+        Test get a specific post object from GET endpoint
         """
         LOGGER.info("Test GET a post by Id")
         response = self.post.get_post(self.post_id)
@@ -49,10 +54,10 @@ class TestPosts:
     @pytest.mark.acceptance
     def test_create_post(self, log_test_names):
         """
-        Test create a new post (posts method)
+        Test create a new post object (posts method)
         """
         LOGGER.info("Test create new post")
-        create_response, _ = self.user.create_user()
+        create_response = self.user.create_user()
         response = self.post.create_post(create_response["body"]["id"])
         if response["status_code"] == 201:
             self.post_created_list.append(response["body"]["id"])
@@ -61,10 +66,10 @@ class TestPosts:
     @pytest.mark.acceptance
     def test_update_post(self, log_test_names):
         """
-        Test update post (the last created)
+        Test update post object (the last created)
         """
         LOGGER.info("Test update posts")
-        create_response, _ = self.user.create_user()
+        create_response = self.user.create_user()
         create_post_response = self.post.create_post(create_response["body"]["id"])
         update_response = self.post.update_post(create_post_response)
         if update_response["status_code"] == 200:
@@ -76,11 +81,39 @@ class TestPosts:
         """
         Test delete a post
         """
-        LOGGER.info("Test delete user")
-        create_response, _ = self.user.create_user()
+        LOGGER.info("Test delete post object")
+        create_response = self.user.create_user()
         create_post_response = self.post.create_post(create_response["body"]["id"])
         delete_response = self.post.delete_post(create_post_response["body"]["id"])
         self.validate.validate_response(delete_response, "posts", "Delete_post")
+
+    @pytest.mark.negative
+    def test_required_title(self, log_test_names):
+        """
+        Test title required field is not sent in request body
+        """
+        LOGGER.info("Test required field: title in post")
+        response = self.post.create_missing_title()
+        self.validate.validate_response(response, "posts", "Field_required")
+
+    @pytest.mark.negative
+    def test_required_body(self, log_test_names):
+        """
+        Test body required field is not sent in request body
+        """
+        LOGGER.info("Test required field: 'Body' content in post")
+        response = self.post.create_missing_post_body()
+        self.validate.validate_response(response, "posts", "Field_required")
+
+    @pytest.mark.negative
+    def test_nonexistent_post(self, log_test_names):
+        """
+        Test trying to retrieve a post object that does not exist
+        """
+        LOGGER.info("Test retrieve user when resource is not available")
+        post_id = 9999999999
+        response = self.post.get_post(post_id)
+        self.validate.validate_response(response, "posts", "Non_existent_post")
 
 # This teardown class method would be unnecessary if the "test_create_user" test
 # were not leaving single user alone that it not being deleted after all tests.
@@ -95,4 +128,4 @@ class TestPosts:
             url_delete_post = f"{cls.url_gorest_posts}/{post_id}"
             response = cls.rest_client.request("delete", url_delete_post)
             if response["status_code"] == 204:
-                LOGGER.info("posts Id deleted : %s", post_id)
+                LOGGER.info("Deleted posts Id:  %s", post_id)

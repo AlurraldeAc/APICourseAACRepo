@@ -5,6 +5,14 @@
 | gorest_api\posts\test_posts.py | TestPosts.test_create_post         |      1 |        1 |
 | gorest_api\posts\test_posts.py | TestPosts.test_update_post         |      1 |        1 |
 | gorest_api\posts\test_posts.py | TestPosts.test_delete_post         |      1 |        1 |
+| gorest_api\posts\test_posts.py | TestPosts.test_required_title      |      1 |        1 |
+| gorest_api\posts\test_posts.py | TestPosts.test_required_body       |      1 |        1 |
+| gorest_api\posts\test_posts.py | TestPosts.test_nonexistent_post    |      1 |        1 |
+| gorest_api\todos\test_todos.py | TestTodos.test_get_all_todos       |      1 |        1 |
+| gorest_api\todos\test_todos.py | TestTodos.test_get_todo            |      1 |        1 |
+| gorest_api\todos\test_todos.py | TestTodos.test_create_todo         |      1 |        1 |
+| gorest_api\todos\test_todos.py | TestTodos.test_update_todo         |      1 |        1 |
+| gorest_api\todos\test_todos.py | TestTodos.test_delete_todo         |      1 |        1 |
 | gorest_api\users\test_users.py | TestUsers.test_get_all_users       |      1 |        1 |
 | gorest_api\users\test_users.py | TestUsers.test_get_user            |      1 |        1 |
 | gorest_api\users\test_users.py | TestUsers.test_create_user         |      1 |        1 |
@@ -13,4 +21,4 @@
 | gorest_api\users\test_users.py | TestUsers.test_required_field_name |      1 |        1 |
 | gorest_api\users\test_users.py | TestUsers.test_email_already_taken |      1 |        1 |
 | gorest_api\users\test_users.py | TestUsers.test_nonexistent_user    |      1 |        1 |
-| TOTAL                          |                                    |     13 |       13 |
+| TOTAL                          |                                    |     21 |       21 |

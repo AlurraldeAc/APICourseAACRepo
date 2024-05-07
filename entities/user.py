@@ -21,7 +21,7 @@ class User:
     def create_user(self, body=None):
         body_user = body
         if body is None:
-            number = random.randint(0,999)
+            number = random.randint(0, 999)
             fake = Faker()
             name = fake.name()
             mail = name.lower().replace(" ", "")
@@ -31,9 +31,8 @@ class User:
                 "gender": "male",
                 "status": "active"
             }
-        response = self.rest_client.request("posts", self.url_gorest_users, body=body_user)
-
-        return response, self.rest_client
+        response = self.rest_client.request("post", self.url_gorest_users, body=body_user)
+        return response
 
     def update_user(self, user):
         id_ = user["body"]["id"]
@@ -74,7 +73,7 @@ class User:
             "gender": "male",
             "status": "active"
             }
-        response = self.rest_client.request("posts", self.url_gorest_users, body=body_user)
+        response = self.rest_client.request("post", self.url_gorest_users, body=body_user)
         return response
 
     def already_taken_email(self, user_object):
@@ -85,7 +84,5 @@ class User:
             "gender": "male",
             "status": "active"
             }
-        response = self.rest_client.request("posts", self.url_gorest_users, body=body_user)
+        response = self.rest_client.request("post", self.url_gorest_users, body=body_user)
         return response
-
-

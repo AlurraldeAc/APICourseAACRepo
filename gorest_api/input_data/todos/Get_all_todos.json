@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/todos"
+  },
+  "response": {
+    "body":
+      [
+        {
+          "id": 48633,
+          "user_id": 6889139,
+          "title": "Congregatio vulgus sol certo cogo allatus terra.",
+          "due_on": "2024-05-13T00:00:00.000+05:30",
+          "status": "completed"
+        },
+        {
+          "id": 48632,
+          "user_id": 6889137,
+          "title": "Tres vulticulus adhuc aeger vulnus.",
+          "due_on": "2024-06-01T00:00:00.000+05:30",
+          "status": "completed"
+        }
+      ]
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "Transfer-Encoding": "chunked"
+  },
+  "status_code": 200
+}

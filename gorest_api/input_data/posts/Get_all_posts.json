@@ -6,18 +6,18 @@
   "response": {
     "body":
       [
-    {
-        "id": 117694,
-        "user_id": 6836133,
-        "title": "Rerum voluptatem.",
-        "body": "Uberrime arcus adipiscor. Coma veniam carbo."
-    },
-    {
-        "id": 117693,
-        "user_id": 6836132,
-        "title": "Crudelis suadeo alii peccatus vere.",
-        "body": "Quidem avarus quia. Vix suus via. Comprehendo recusandae tum. "
-    }
+        {
+            "id": 117694,
+            "user_id": 6836133,
+            "title": "Rerum voluptatem.",
+            "body": "Uberrime arcus adipiscor. Coma veniam carbo."
+        },
+        {
+            "id": 117693,
+            "user_id": 6836132,
+            "title": "Crudelis suadeo alii peccatus vere.",
+            "body": "Quidem avarus quia. Vix suus via. Comprehendo recusandae tum. "
+        }
       ]
   },
   "headers": {

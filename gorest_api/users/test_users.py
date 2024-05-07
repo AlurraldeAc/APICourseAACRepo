@@ -12,6 +12,11 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 class TestUsers:
+    user_created_list = None
+    user_id = None
+    url_gorest_users = None
+    rest_client = None
+
     @classmethod
     def setup_class(cls):
         """
@@ -50,7 +55,7 @@ class TestUsers:
         Test create a new user (posts method)
         """
         LOGGER.info("Test create new user")
-        response, _ = self.user.create_user()
+        response = self.user.create_user()
         if response["status_code"] == 201:
             self.user_created_list.append(response["body"]["id"])
         self.validate.validate_response(response, "users", "Create_user")
@@ -61,7 +66,7 @@ class TestUsers:
         Test update user (the last created)
         """
         LOGGER.info("Test update user")
-        create_response, _ = self.user.create_user()
+        create_response = self.user.create_user()
         update_response = self.user.update_user(create_response)
 
         if update_response["status_code"] == 200:
@@ -74,7 +79,7 @@ class TestUsers:
         Test delete a user
         """
         LOGGER.info("Test delete user")
-        create_response, _ = self.user.create_user()
+        create_response = self.user.create_user()
         response = self.user.delete_user(create_response["body"]["id"])
         self.validate.validate_response(response, "users", "Delete_user")
 
@@ -93,7 +98,7 @@ class TestUsers:
         Test email address is already taken
         """
         LOGGER.info("Test email address is already taken")
-        response_create, _ = self.user.create_user()
+        response_create = self.user.create_user()
         if response_create["status_code"] == 201:
             self.user_created_list.append(response_create["body"]["id"])
         response = self.user.already_taken_email(response_create)

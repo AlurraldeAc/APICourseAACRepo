@@ -1,8 +1,6 @@
 import logging
 import random
 
-from faker import Faker
-
 from config.config import URL_GOREST
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
@@ -25,7 +23,7 @@ class Post:
             "title": f"Post test {number}",
             "body": f"New post body {number}"
         }
-        response = self.rest_client.request("posts", self.url_gorest_posts, body=body_post)
+        response = self.rest_client.request("post", self.url_gorest_posts, body=body_post)
         return response
 
     def update_post(self, post_object):
@@ -59,3 +57,18 @@ class Post:
         response = self.rest_client.request("get", url_post)
         return response
 
+    def create_missing_title(self):
+        body_post = {
+            "title": "",
+            "body": " Post test user name"
+            }
+        response = self.rest_client.request("post", self.url_gorest_posts, body=body_post)
+        return response
+
+    def create_missing_post_body(self):
+        body_post = {
+            "title": "Post title test user",
+            "body": ""
+            }
+        response = self.rest_client.request("post", self.url_gorest_posts, body=body_post)
+        return response
