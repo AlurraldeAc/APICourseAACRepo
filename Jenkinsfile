@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Run Python Scripts') {
             steps {
-                withPythonEnv('python3') {
+                withPythonEnv('python') {
                     bat 'pip install -r requirements.txt'
                     bat 'behave -f allure_behave.formatter:AllureFormatter -o reports/allure'
                 }
