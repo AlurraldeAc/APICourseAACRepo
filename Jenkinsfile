@@ -11,7 +11,7 @@ pipeline {
             steps {
                 withPythonEnv('python3') {
                     bat 'pip install -r requirements.txt'
-                    bat 'python -m behave -f allure_behave.formatter:AllureFormatter -o reports/allure'
+                    bat 'behave -f allure_behave.formatter:AllureFormatter -o reports/allure'
                 }
             }
         }
